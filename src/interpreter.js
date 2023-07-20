@@ -110,6 +110,7 @@ function threadLast(form, expr) {
 }
 
 let namespace = "user"
+let recurPoint = null
 
 function _EVAL(ast, env) {
   //console.log("Walking AST:", walk(x => x*2, x => x, ast))
@@ -129,6 +130,7 @@ function _EVAL(ast, env) {
     }
 
     var a0 = ast[0], a1 = ast[1], a2 = ast[2], a3 = ast[3];
+   
     // Special forms:
     switch (a0.value) {
       case "ns":
@@ -139,7 +141,8 @@ function _EVAL(ast, env) {
         _env.addToEnv(env, a1, res);
         return "#'" + namespace + "/" + a1
       case "defn":
-        const fn = types._function(EVAL, a3, env, a2);
+        const fn = types._function(EVAL, a3, a2);
+        recurPoint = fn
         _env.addToEnv(env, a1, fn)
         return "#'" + namespace + "/" + a1
       case "let":
@@ -201,7 +204,7 @@ function _EVAL(ast, env) {
         let body = ast.slice(1)[0]
         fun.push(args)
         fun.push(body)
-        return types._function(EVAL, body, env, args);
+        return types._function(EVAL, body, args);
       case "quote":
         return a1;
       case "quasiquoteexpand":
@@ -239,7 +242,11 @@ function _EVAL(ast, env) {
         }
         break;
       case "fn":
-        return types._function(EVAL, a2, env, a1);
+        recurPoint = types._function(EVAL, a2, a1);
+        return types._function(EVAL, a2, a1);
+      case "recur":
+        console.log("recur form:", [recurPoint].concat(ast.slice(1)))
+         return EVAL([recurPoint].concat(ast.slice(1)))
       default:
         // not a special form, so a regular function call. 
         // first we use `eval_ast()` to resolve the individual

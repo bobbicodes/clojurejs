@@ -146,15 +146,15 @@ export function postwalk(f, form) {
 
 // Functions
 
-export function _function(Eval, ast, env, params) {
-    const fn = function () {
-        return Eval(ast, bindExprs(env, params, arguments))
+export function _function(Eval, ast, params) {
+    let fn = function () {
+        return Eval(ast, bindExprs(params, arguments))
     }
     fn.__meta__ = null;
     fn.__ast__ = ast;
     //   console.log("ast:", ast)
     fn.__gen_env__ = function (args) {
-        return bindExprs(env, params, args)
+        return bindExprs(params, args)
     }
     fn._ismacro_ = false;
     return fn;

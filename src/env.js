@@ -5,7 +5,7 @@ export const init_env = {
 
 export let currentEnv = init_env
 
-export function bindExprs(outer, binds, exprs) {
+export function bindExprs(binds, exprs) {
     // Returns a new Env with symbols in binds bound to
     // corresponding values in exprs
     let env = init_env
@@ -19,7 +19,7 @@ export function bindExprs(outer, binds, exprs) {
             env.data[binds[i].value] = exprs[i];
         }
     }
-    env.outer = outer
+    //env.outer = outer
     return env
 }
 
