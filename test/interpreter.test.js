@@ -3,7 +3,7 @@ import { _symbol } from "../src/types"
 import { evalString} from "../src/interpreter"
 import {read_str} from "../src/reader"
 
-test('evaluation', () => {
+test('evaluating defn, def, let', () => {
   expect(evalString('(+ 1 1)')).toBe("2")
   expect(read_str(evalString('(do (defn hi [s] (str "hi " s)) (hi "there"))'))).toBe(`hi there`)
   expect(evalString('(let [x 1] x)')).toBe("1")

@@ -219,3 +219,8 @@ evalString(`(def memoize
 evalString(`(def partial (fn [pfn & args]
   (fn [& args-inner]
     (apply pfn (concat args args-inner)))))`)
+evalString(`(def every?
+  (fn (pred xs)
+    (cond (empty? xs)       true
+          (pred (first xs)) (every? pred (rest xs))
+          true              false)))`)
