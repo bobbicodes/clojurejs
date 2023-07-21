@@ -144,6 +144,7 @@ function _EVAL(ast, env) {
         return types._function(EVAL, Env, a2, env, a1);
       default:
         var el = eval_ast(ast, env), f = el[0];
+        console.log("Calling function:", f)
         if (f.__ast__) {
           ast = f.__ast__;
           env = f.__gen_env__(el.slice(1));

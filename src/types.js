@@ -85,13 +85,12 @@ export function _string_Q(obj) {
 }
 
 // Symbols
-export class Symbol {
-    constructor(name) {
-        this.value = name;
-        return this;
-    }
-    toString() { return this.value; }
+export function Symbol(name) {
+    
+    this.value = name;
+    return this;
 }
+Symbol.prototype.toString = function() { return this.value; }
 export function _symbol(name) { return new Symbol(name); }
 export function _symbol_Q(obj) { return obj instanceof Symbol; }
 
@@ -146,6 +145,7 @@ export function postwalk(f, form) {
 
 // Functions
 export function _function(Eval, Env, ast, env, params) {
+    console.log("Defining function", ast)
     var fn = function() {
         return Eval(ast, new Env(env, params, arguments));
     };
