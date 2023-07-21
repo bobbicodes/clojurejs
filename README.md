@@ -6,7 +6,7 @@ Live demo: https://bobbicodes.github.io/clojurejs/
 
 ## Rationale
 
-Eventually this will become a Codemirror extension similar to [lang-clojure-eval](https://github.com/bobbicodes/lang-clojure-eval/) but much lighter weight because it removes the Clojurescript dependency. To be precise, we're looking at 440kB versus 2MB. Designed for powering teaching tools, not writing production software.
+Eventually this will become a Codemirror extension similar to [lang-clojure-eval](https://github.com/bobbicodes/lang-clojure-eval/) but much lighter weight because it removes the Clojurescript dependency. To be precise, we're looking at 440kB versus 2MB (unzipped). Designed for powering teaching tools, not writing production software.
 
 ## Features
 
