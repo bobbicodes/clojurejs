@@ -104,6 +104,13 @@ function _EVAL(ast, env) {
         ast = a2;
         env = let_env;
         break;
+      case "dispatch":
+        let fun = [types._symbol('fn')]
+        const args = ast.toString().match(/%\d?/g).map(types._symbol)
+        let body = ast.slice(1)[0]
+        fun.push(args)
+        fun.push(body)
+        return types._function(EVAL, Env, body, env, args);
       case "quote":
         return a1;
       case "quasiquoteexpand":
