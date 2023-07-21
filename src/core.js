@@ -135,7 +135,7 @@ function range(start, end) {
         return range(0, start)
     }
     var ans = [];
-    for (let i = start; i <= end; i++) {
+    for (let i = start; i < end; i++) {
         ans.push(i);
     }
     return ans;
