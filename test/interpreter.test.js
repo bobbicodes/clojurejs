@@ -1,12 +1,10 @@
 import {expect, test} from 'vitest'
-import { read_str } from "../src/reader"
 import { _symbol } from "../src/types"
-import {Env} from '../src/env.js'
 import { evalString} from "../src/interpreter"
 
 test('interpreter', () => {
-  //expect(evalString(read_str('(let [x 2] x)'))).toBe(2)
-  //expect(EVAL(read_str('(let [x 1] x)')), env1).toBe(1)
-  //expect(_EVAL(read_str('(let [y 3] y)')), env1).toBe(3)
-  //expect(_EVAL(read_str('{:a 1}')), env1).toBe(_symbol({a: 1}))
+  expect(evalString('(+ 1 1)')).toBe("2")
+  expect(evalString('(let [x 1] x)')).toBe("1")
+  expect(evalString('(let [y 3] y)')).toBe("3")
+  expect(evalString('{:a 1}')).toBe("{:a 1}")
 })

@@ -49,6 +49,7 @@ function macroexpand(ast, env) {
 }
 
 function eval_ast(ast, env) {
+  console.log("AST:", ast)
   if (types._symbol_Q(ast)) {
     return env.get(ast);
   } else if (types._list_Q(ast)) {
@@ -59,7 +60,7 @@ function eval_ast(ast, env) {
     return v;
   } else if (types._hash_map_Q(ast)) {
     var new_hm = {};
-    for (k in ast) {
+    for (const k in ast) {
       new_hm[k] = EVAL(ast[k], env);
     }
     return new_hm;
