@@ -181,6 +181,9 @@ export const evalString = function (str) { return PRINT(EVAL(READ(str), repl_env
 for (var n in core.ns) { repl_env.set(types._symbol(n), core.ns[n]); }
 
 evalString("(defmacro cond (fn (& xs) (if (> (count xs) 0) (list 'if (first xs) (if (> (count xs) 1) (nth xs 1) (throw \"odd number of forms to cond\")) (cons 'cond (rest (rest xs)))))))");
+evalString("(def dec (fn (a) (- a 1)))")
+evalString("(def zero? (fn (n) (= 0 n)))")
+evalString("(def identity (fn (x) x))")
 evalString(`(def reduce
   (fn (f init xs)
     (if (empty? xs)
@@ -194,4 +197,18 @@ evalString(`(def gensym
   (let [counter (atom 0)]
     (fn []
       (symbol (str "G__" (swap! counter inc))))))`)
-evalString(("(defmacro or (fn (& xs) (if (empty? xs) nil (if (= 1 (count xs)) (first xs) (let (condvar (gensym)) `(let (~condvar ~(first xs)) (if ~condvar ~condvar (or ~@(rest xs)))))))))"))
+evalString("(defmacro or (fn (& xs) (if (empty? xs) nil (if (= 1 (count xs)) (first xs) (let (condvar (gensym)) `(let (~condvar ~(first xs)) (if ~condvar ~condvar (or ~@(rest xs)))))))))")
+evalString(`(def memoize
+  (fn [f]
+    (let [mem (atom {})]
+      (fn [& args]
+        (let [key (str args)]
+          (if (contains? @mem key)
+            (get @mem key)
+            (let [ret (apply f args)]
+              (do
+                (swap! mem assoc key ret)
+                ret))))))))`)
+evalString(`(def partial (fn [pfn & args]
+  (fn [& args-inner]
+    (apply pfn (concat args args-inner)))))`)
