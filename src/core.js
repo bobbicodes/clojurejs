@@ -205,6 +205,10 @@ function map(f, lst) {
     return lst.map(function (el) { return f(el); });
 }
 
+function filter(f, lst) {
+    return lst.filter(function (el) { return f(el); });
+}
+
 
 // Metadata functions
 function with_meta(obj, m) {
@@ -303,6 +307,7 @@ export const ns = {
     'count': count,
     'apply': apply,
     'map': map,
+    'filter': filter,
     'range': range,
 
     'conj': conj,
