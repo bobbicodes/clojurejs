@@ -4,15 +4,13 @@ import { EditorState } from '@codemirror/state'
 import { clojure } from "../src/clojure"
 
 let editorState = EditorState.create({
-    doc: `(defn pos-neg-or-zero
-  "Determines whether or not n is positive, negative, or zero"
-  [n]
+    doc: `(defn pos-neg-or-zero [n]
   (cond
     (< n 0) "negative"
     (> n 0) "positive"
     :else "zero"))
-
-(pos-neg-or-zero 5)`,
+      
+(pos-neg-or-zero -6)`,
     extensions: [basicSetup, clojure()]
 })
 
