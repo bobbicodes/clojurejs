@@ -68,9 +68,11 @@ function eval_ast(ast, env) {
   }
 }
 
+let namespace = "user"
+
 function _EVAL(ast, env) {
   console.log("Evaluating", ast, env)
-  let namespace = "user"
+  
   while (true) {
 
     //printer.println("EVAL:", printer._pr_str(ast, true));
@@ -89,6 +91,9 @@ function _EVAL(ast, env) {
 
     var a0 = ast[0], a1 = ast[1], a2 = ast[2], a3 = ast[3];
     switch (a0.value) {
+      case "ns":
+        namespace = a1
+        return null
       case "def":
         var res = EVAL(a2, env);
         return env.set(a1, res);
