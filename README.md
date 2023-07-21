@@ -10,14 +10,13 @@ Eventually this will become a Codemirror extension similar to [lang-clojure-eval
 
 ## Features
 
-No macros yet, but some common Clojure macros are being implemented as special forms.
-
 - ✅ Tail call optimization
 - ✅ Immutable collections and swappable atoms like Clojure
 - ✅ JavaScript interop
 - ✅ Thread-first (`->`)
 - ✅ Thread-last (`->>`)
 - ✅ Anonymous function shorthand eg. `#(inc %)`
+- ✅ Macros
 
 ## Dev
 
