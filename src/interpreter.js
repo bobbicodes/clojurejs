@@ -190,3 +190,8 @@ evalString("(def _iter-> (fn [acc form] (if (list? form) `(~(first form) ~acc ~@
 evalString("(defmacro -> (fn (x & xs) (reduce _iter-> x xs)))")
 evalString("(def _iter->> (fn [acc form] (if (list? form) `(~(first form) ~@(rest form) ~acc) (list form acc))))")
 evalString("(defmacro ->> (fn (x & xs) (reduce _iter->> x xs)))")
+evalString(`(def gensym
+  (let [counter (atom 0)]
+    (fn []
+      (symbol (str "G__" (swap! counter inc))))))`)
+evalString(("(defmacro or (fn (& xs) (if (empty? xs) nil (if (= 1 (count xs)) (first xs) (let (condvar (gensym)) `(let (~condvar ~(first xs)) (if ~condvar ~condvar (or ~@(rest xs)))))))))"))
