@@ -1,7 +1,7 @@
 import {expect, test} from 'vitest'
 import {ns } from '../src/core'
 import {_symbol} from '../src/types'
-import {init_env, setInEnv, getKeyInEnv, newScope, findKeyInEnv} from '../src/env'
+import {Env} from '../src/env'
 
 const hash_map = ns['hash-map']
 const hash_map_Q = ns['map?']
@@ -66,25 +66,25 @@ test('equal? function', () => {
     expect(equal_Q(L10, L6)).toBe(false)
 })
 
-let env1 = init_env
+var env1 = new Env()
 
 test('ENV (1 level)', () => {
-    expect(setInEnv(env1, 'a','val_a')).toBe('val_a')
-    expect(setInEnv(env1, 'b','val_b')).toBe('val_b')
-    expect(setInEnv(env1, '=','val_eq')).toBe('val_eq')
-    expect(getKeyInEnv(env1, 'a')).toBe('val_a')
-    expect(getKeyInEnv(env1, 'b')).toBe('val_b')
-    expect(getKeyInEnv(env1, '=')).toBe('val_eq')
+    expect(env1.set('a','val_a')).toBe('val_a')
+    expect(env1.set('b','val_b')).toBe('val_b')
+    expect(env1.set('=','val_eq')).toBe('val_eq')
+    expect(env1.get('a')).toBe('val_a')
+    expect(env1.get('b')).toBe('val_b')
+    expect(env1.get('=')).toBe('val_eq')
 })
 
 test('ENV (2 levels)', () => {
-    let env2 = newScope(env1)
-    expect(setInEnv(env2, 'b','val_b2')).toBe('val_b2')
-    expect(setInEnv(env2, 'c','val_c')).toBe('val_c')
-    expect(findKeyInEnv(env2, 'a')).toBe(env1)
-    expect(findKeyInEnv(env2, 'b')).toBe(env2)
-    expect(findKeyInEnv(env2, 'c')).toBe(env2)
-    expect(getKeyInEnv(env2, 'a')).toBe('val_a')
-    expect(getKeyInEnv(env2, 'b')).toBe('val_b2')
-    expect(getKeyInEnv(env2, 'c')).toBe('val_c')
+    let env2 = new Env(env1)
+    expect(env2.set('b','val_b2')).toBe('val_b2')
+    expect(env2.set('c','val_c')).toBe('val_c')
+    expect(env2.find('a')).toBe(env1)
+    expect(env2.find('b')).toBe(env2)
+    expect(env2.find('c')).toBe(env2)
+    expect(env2.get('a')).toBe('val_a')
+    expect(env2.get('b')).toBe('val_b2')
+    expect(env2.get('c')).toBe('val_c')
 })

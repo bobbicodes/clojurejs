@@ -69,6 +69,7 @@ function eval_ast(ast, env) {
 }
 
 function _EVAL(ast, env) {
+  console.log("Evaluating", ast, env)
   let namespace = "user"
   while (true) {
 
