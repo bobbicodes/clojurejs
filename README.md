@@ -2,6 +2,10 @@
 
 Clojure interpreter in modern JavaScript (ESM)
 
+## Archived - July 2023
+
+Current development moved to https://github.com/bobbicodes/exercism-express in which the exercises happens to act as a natural, ideal test suite. Eventually we will break off the interpreter into its own package, which will go into a fresh repo. This repo remains for a record of the initial development.
+
 Live demo: https://bobbicodes.github.io/clojurejs/
 
 ## Rationale
